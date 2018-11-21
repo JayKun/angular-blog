@@ -19,29 +19,30 @@ export class BlogService {
 
     fetchPosts(username: string): void {
         let url = "http://192.168.99.100:3000/api/" + username;
-        let options = {
+        let p = fetch(url, {
             mode: "cors",
             credentials: "include"
-        };
-        let p = fetch(url, options);
+        });
         p.then((res) => {
             res.json().then( data => {
             this.posts = data});
         });
     }
-    
+
+/*    
     getMaxId(username: string): number {
         if(typeof this.posts == "undefined"){
-            getPosts(username);
+            this.getPosts(username);
         }
         let res = 1;
         for(let post in this.posts){
             if(post.postid > res) {
-                res = post.postid;
+                res = +post.postid;
             }
         }
         return res;
     }
+*/
 
     getPosts(username: string): Post[] {
         this.fetchPosts(username);
@@ -49,7 +50,7 @@ export class BlogService {
     }
 
     getPost(username: string, postid: number): Post {
-        for(let post in this.posts){
+        for(let post of this.posts){
             if(post.postid == postid){
                 return post;
             }
@@ -58,36 +59,37 @@ export class BlogService {
     }
 
     newPost(username: string): Post{
-        let url = "http://192.168.99.100:3000/api/" + username;
+        let url = "http://192.168.99.100:3000/api/" + username + "/123";
         let post = {
-            postid: getMaxId + 1;
-            created: new Date.now();
-            modified: new Date.now();
-            title: "";
-            body: "";       
+            postid: 123,
+            created: new Date(),
+            modified: new Date(),
+            title: "",
+            body: "",      
         };
-        let options = {
+
+        let p = fetch(url,{
             method: "POST",
             mode: "cors",
             credentials: "include",
             headers: {
                 "Content-Type": "application/json; charset=utf-8",
             },
-            body = JSON.stringify(post);
-        };
-
-        let p = fetch(url, options);
+            body : JSON.stringify(post)
+        });
         p.then( res => {
-            if(response.status == 201){
+            if(res.status == 201){
                 res.json().then( data => {
-                    posts.push(post);
+                    this.posts.push(post);
                     return data;
                 });
             }
             else{
                 // TODO: redirect and pop alert box.
+                this.posts.push(post);
                 return null;
             }
         });
+        return null;
     }
 }
