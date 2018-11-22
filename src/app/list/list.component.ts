@@ -1,6 +1,5 @@
 import { Input, Component, OnInit } from '@angular/core';
 import { BlogService, Post } from '../blog.service';
-import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-list',
@@ -9,12 +8,13 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 })
 
 export class ListComponent implements OnInit {
-    @Input() posts: Post[];
+    posts: Post[];
 
     constructor(private blogService: BlogService) {
     }
 
     ngOnInit() {
+        this.posts = this.blogService.getPosts('cs144');
     }
 
     getPosts() {
@@ -28,14 +28,4 @@ export class ListComponent implements OnInit {
         return JSON.parse(atob(base64)).username;
     }
 
-    getUsernameFromToken(token: string) {
-        const helper = new JwtHelperService();
-        try{
-            return helper.decodeToken(token).usr;
-        }
-        catch(Error){
-            console.log(Error);
-            return null;
-        }
-    }
 }

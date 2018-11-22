@@ -13,20 +13,25 @@ export class Post {
 })
 
 export class BlogService {
-    @Input() posts: Post[];
+    posts: Post[];
 
     constructor() {}
 
     fetchPosts(username: string): void {
         let url = "http://192.168.99.100:3000/api/" + username;
-        let p = fetch(url, {
-            mode: "cors",
-            credentials: "include"
-        });
-        p.then((res) => {
-            res.json().then( data => {
-            this.posts = data});
-        });
+        let request = new XMLHttpRequest();
+        request.open('GET', url, false);
+        request.send(null);
+        request.onreadystatechange = function() {
+            if(request.readyState == 4) {
+                console.log("Post fetched successfully");
+            }
+            else {
+                console.log(request.response);
+                return;
+            }
+        };
+        this.posts = JSON.parse(request.response);
     }
 
     getPosts(username: string): Post[] {
