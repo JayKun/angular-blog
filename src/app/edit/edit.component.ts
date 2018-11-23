@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Post, BlogService } from '../blog.service';
 
 @Component({
   selector: 'app-edit',
@@ -6,10 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./edit.component.css']
 })
 export class EditComponent implements OnInit {
+  post: Post;
 
-  constructor() { }
+  constructor(private blogService: BlogService) { }
 
   ngOnInit() {
+    this.post = this.blogService.posts[0];
   }
 
 }

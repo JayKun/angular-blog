@@ -8,16 +8,10 @@ import { BlogService, Post } from '../blog.service';
 })
 
 export class ListComponent implements OnInit {
-    posts: Post[];
-
     constructor(private blogService: BlogService) {
     }
 
     ngOnInit() {
-        this.posts = this.blogService.getPosts('cs144');
-    }
-
-    getPosts() {
         let username = this.parseJWT(document.cookie);
         this.posts = this.blogService.getPosts(username);
     }

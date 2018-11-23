@@ -14,6 +14,7 @@ export class Post {
 
 export class BlogService {
     posts: Post[];
+    nextId: number = 10;
 
     constructor() {}
 
@@ -48,35 +49,40 @@ export class BlogService {
         return null;
     }
 
-    newPost(username: string): Post{
-        let url = "http://192.168.99.100:3000/api/" + username + "/123";
+    newPost(username: string): Post {
+        let url = "http://192.168.99.100:3000/api/" + username + "/" + this.nextId.toString();
         let post = {
-            postid: 123,
+            postid: this.nextId,
             created: new Date(),
             modified: new Date(),
             title: "",
             body: "",      
         };
-
+        let payload = {
+            title: "",
+            body: ""
+        }
         let p = fetch(url,{
             method: "POST",
             mode: "cors",
             credentials: "include",
             headers: {
-                "Content-Type": "application/json; charset=utf-8",
+                "Accept": "application/json",
+                "Content-Type": "application/json",
             },
-            body : JSON.stringify(post)
+            body : JSON.stringify(payload)
         });
+
         p.then( res => {
             if(res.status == 201){
-                res.json().then( data => {
                     this.posts.push(post);
-                    return data;
-                });
+                    this.nextId = this.nextId + 1;
+                    return post;
             }
             else{
                 // TODO: redirect and pop alert box.
-                this.posts.push(post);
+                console.log("Adding new post failed");
+                console.log(res);
                 return null;
             }
         });
