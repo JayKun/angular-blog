@@ -6,7 +6,7 @@
 <br>
 <ul class="list-group">
     <li class="list-group-item" *ngFor="let post of blogService.posts">
-        <a href="#/edit/{{ post.postid }}">
+        <a routerLink="edit/{{ post.postid }}" routerLinkActive="active">
             <span class="badge badge-pill badge-primary">
                 {{ post.created | date:'medium' }}
             </span>

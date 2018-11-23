@@ -35,12 +35,8 @@ export class BlogService {
         this.posts = JSON.parse(request.response);
     }
 
-    getPosts(username: string): Post[] {
-        this.fetchPosts(username);
-        return this.posts;
-    }
-
     getPost(username: string, postid: number): Post {
+        this.fetchPosts(username);
         for(let post of this.posts){
             if(post.postid == postid){
                 return post;

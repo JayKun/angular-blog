@@ -13,7 +13,7 @@ export class ListComponent implements OnInit {
 
     ngOnInit() {
         let username = this.parseJWT(document.cookie);
-        this.posts = this.blogService.getPosts(username);
+        this.blogService.fetchPosts(username);
     }
 
     parseJWT(token: string):string {
