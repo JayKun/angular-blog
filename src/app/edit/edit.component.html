@@ -2,7 +2,7 @@
     Title: <input [(ngModel)]="post.title" class="form-control" type="text" name="title"/>
     Body: <textarea [(ngModel)]="post.body" class="form-control" name="body" row="5"></textarea>
     <br>
-    <button type="button" (click)="blogService.deletePost('cs144', post.id)" class="btn btn-danger">Delete</button>
-    <button type="button" (click)="blogService.updatePost('cs144', post)" class="btn btn-success">Save</button>
+    <button type="button" (click)="deletePost()" class="btn btn-danger">Delete</button>
+    <button type="button" (click)="updatePost()" class="btn btn-success">Save</button>
     <button type="button"  class="btn btn-secondary">Preview</button>
 </form>

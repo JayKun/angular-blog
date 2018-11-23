@@ -129,7 +129,7 @@ export class BlogService {
         for(let i in this.posts) {
             if(this.posts[i].postid == postid){
                 match = this.posts[i];
-                delete this.posts[i];
+                this.posts.splice(parseInt(i), 1);
             }
         }
         if(!match){
