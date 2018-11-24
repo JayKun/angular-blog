@@ -95,23 +95,27 @@ export class BlogService {
         }
 
         if(!match){
+            console.log("No matching post found")
             return;
         }
 
-        let newPost = {
-            postid: match.postid,
-            username: match.username,
+        let payload = {
             title: post.title,
-            body: post.body,
-            modified: Date.now()
-        };
+            body: post.body
+        }
+
+        console.log(payload);
 
         let url = "http://192.168.99.100:3000/api/" + username + "/" + match.postid.toString();
         let p = fetch(url, {
             method: "PUT",
             mode: "cors",
             credentials: "include",
-            body: JSON.stringify(newPost)
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(payload)
         });
         
         p.then( res => {
@@ -120,6 +124,7 @@ export class BlogService {
             }
             else{
                 console.log("Update failed");
+                console.log(res);
             }
         });
     }

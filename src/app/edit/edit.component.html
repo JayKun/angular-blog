@@ -4,5 +4,9 @@
     <br>
     <button type="button" (click)="deletePost()" class="btn btn-danger">Delete</button>
     <button type="button" (click)="updatePost()" class="btn btn-success">Save</button>
-    <button type="button"  class="btn btn-secondary">Preview</button>
+    <a routerLink="../../preview/{{post.postid}}" routerLinkActive="active">
+        <button type="button" (click)="updatePost()" class="btn btn-secondary">
+            Preview
+        </button>
+    </a>
 </form>

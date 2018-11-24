@@ -14,8 +14,8 @@ export class EditComponent implements OnInit {
     constructor(private blogService: BlogService, private activatedRoute: ActivatedRoute) { }
 
     ngOnInit() {
-        this.username = this.parseJWT(document.cookie);
         this.activatedRoute.paramMap.subscribe( () => {
+            this.username = this.parseJWT(document.cookie);
             let id = this.activatedRoute.snapshot.paramMap.get('id');
             this.post = this.blogService.getPost(this.username, parseInt(id))
         });

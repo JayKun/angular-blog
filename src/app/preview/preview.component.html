@@ -1,3 +1,9 @@
-<p>
-  preview works!
-</p>
+<a routerLink="../../edit/{{postid}}" routerLinkActive="active">
+    <button class="btn btn-warning">
+    Edit
+    </button>
+</a>
+
+<h1 [innerHtml]= title></h1>
+<p [innerHtml]=body></p>
+
