@@ -1,7 +1,7 @@
 <form class="form-group">
     <span class="badge badge-primary">Title:</span> <input [(ngModel)]="post.title" class="form-control" type="text" name="title"/>
     <span class="badge badge-info">Body: </span> <textarea [(ngModel)]="post.body" class="form-control" name="body" row="10" cols="50"></textarea>
-    <span class="badge badge-success">Last Modified:</span> {{ post.created | date:'medium' }}
+    <span class="badge badge-success">Last Modified:</span> <span class="badge badge-primary badge-pill">{{ post.created | date:'medium' }}</span>
     <br>
     <br>
     <button type="button" (click)="deletePost()" class="btn btn-danger">Delete</button>
