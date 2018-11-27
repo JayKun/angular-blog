@@ -19,7 +19,7 @@ export class BlogService {
     constructor(private router: Router) {}
 
     fetchPosts(username: string): void {
-        let url = "http://192.168.99.100:3000/api/" + username;
+        let url = "http://localhost:3000/api/" + username;
         let request = new XMLHttpRequest();
         request.open('GET', url, false);
         request.send(null);
@@ -55,7 +55,7 @@ export class BlogService {
     
         let nextId = maxId + 1;
 
-        let url = "http://192.168.99.100:3000/api/" + username + "/" + nextId.toString();
+        let url = "http://localhost:3000/api/" + username + "/" + nextId.toString();
         let post = {
             postid: nextId,
             created: new Date(),
@@ -116,7 +116,7 @@ export class BlogService {
 
         console.log(payload);
 
-        let url = "http://192.168.99.100:3000/api/" + username + "/" + match.postid.toString();
+        let url = "http://localhost:3000/api/" + username + "/" + match.postid.toString();
         let p = fetch(url, {
             method: "PUT",
             mode: "cors",
@@ -153,7 +153,7 @@ export class BlogService {
             console.log("Post is not found");
             return;
         }
-        let url = "http://192.168.99.100:3000/api/" + username + "/" + postid.toString();
+        let url = "http://localhost:3000/api/" + username + "/" + postid.toString();
         let p = fetch(url, {
             method: "DELETE",
             mode: "cors",
