@@ -1,4 +1,5 @@
 import { Input, Injectable } from '@angular/core';
+import { Router } from '@angular/router'
 
 export class Post {
   postid: number;
@@ -15,7 +16,7 @@ export class Post {
 export class BlogService {
     posts: Post[];
 
-    constructor() {}
+    constructor(private router: Router) {}
 
     fetchPosts(username: string): void {
         let url = "http://192.168.99.100:3000/api/" + username;
@@ -87,6 +88,7 @@ export class BlogService {
                 console.log("Adding new post failed");
                 console.log(res);
                 alert('Adding new post failed');
+                this.router.navigate(['/']);
                 return null;
             }
         });
@@ -134,6 +136,7 @@ export class BlogService {
                 console.log("Update failed");
                 console.log(res);
                 alert("Update failed");
+                this.router.navigate(['/']);
             }
         });
     }
@@ -147,7 +150,7 @@ export class BlogService {
             }
         }
         if(!match){
-            console.log("Post is deleted");
+            console.log("Post is not found");
             return;
         }
         let url = "http://192.168.99.100:3000/api/" + username + "/" + postid.toString();
@@ -163,6 +166,7 @@ export class BlogService {
             else{
                 console.log("Error deleting post");
                 alert("Error deleting post");
+                this.router.navigate(['/']);
             }
         });
     }

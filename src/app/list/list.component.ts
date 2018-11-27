@@ -1,4 +1,5 @@
 import { Input, Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { BlogService, Post } from '../blog.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { BlogService, Post } from '../blog.service';
 })
 
 export class ListComponent implements OnInit {
-    constructor(private blogService: BlogService) {
+    constructor(private blogService: BlogService, private router: Router) {
     }
 
     ngOnInit() {
@@ -19,10 +20,6 @@ export class ListComponent implements OnInit {
     newPost(){
         let username = this.parseJWT(document.cookie);
         let res = this.blogService.newPost(username);
-        if(res == null) {
-            console.log("New post creation failed");
-            alert("New post creation failed");
-        }
     }
     
     parseJWT(token: string):string {

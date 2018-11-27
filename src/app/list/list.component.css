@@ -1,0 +1,15 @@
+#new-post{
+    padding-top: 20px;
+}
+
+li {
+    background-color: #e0e0e0;
+}
+
+li:hover {
+    background-color: #c4c4c4;
+}
+
+a:hover {
+    text-decoration: none;
+}

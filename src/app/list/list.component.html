@@ -1,17 +1,18 @@
-<div class="text-center">
-    <button class="btn btn-warning" (click)="blogService.newPost('cs144', 123)">
+<div id="new-post">
+    <button class="btn btn-info" (click)="newPost()">
     New Post
     </button>
 </div>
-<br>
-<ul class="list-group">
-    <li class="list-group-item" *ngFor="let post of blogService.posts">
-        <a routerLink="edit/{{ post.postid }}" routerLinkActive="active">
+<ul class="list-group"> 
+    <div *ngFor="let post of blogService.posts">
+    <a routerLink="edit/{{ post.postid }}" routerLinkActive="active">
+        <li class="list-group-item">
             <span class="badge badge-pill badge-primary">
-                {{ post.created | date:'medium' }}
+            {{ post.created | date:'medium' }}
             </span>
             {{ post.title }}
-        </a>
-    </li>
+        </li>
+    </a>
+    </div>
 <ul>
 <br>
