@@ -1,17 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { Post, BlogService } from '../blog.service';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.css']
 })
+
 export class EditComponent implements OnInit {
     post: Post;
     username: string;    
 
-    constructor(private blogService: BlogService, private activatedRoute: ActivatedRoute) { }
+    constructor(private blogService: BlogService,
+            private router: Router,
+            private activatedRoute: ActivatedRoute) { }
 
     ngOnInit() {
         this.activatedRoute.paramMap.subscribe( () => {
@@ -27,11 +31,13 @@ export class EditComponent implements OnInit {
         return JSON.parse(atob(base64)).username;
     }
 
+    @HostListener('window:beforeunload')
     updatePost() {
         this.blogService.updatePost(this.username, this.post);
     }
     
     deletePost() {
         this.blogService.deletePost(this.username, this.post.postid);
+        this.router.navigate(['/']);
     }
 }

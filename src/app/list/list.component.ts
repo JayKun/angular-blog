@@ -15,7 +15,16 @@ export class ListComponent implements OnInit {
         let username = this.parseJWT(document.cookie);
         this.blogService.fetchPosts(username);
     }
-
+    
+    newPost(){
+        let username = this.parseJWT(document.cookie);
+        let res = this.blogService.newPost(username);
+        if(res == null) {
+            console.log("New post creation failed");
+            alert("New post creation failed");
+        }
+    }
+    
     parseJWT(token: string):string {
         let base64Url = token.split('.')[1];
         let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');

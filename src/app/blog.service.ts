@@ -14,7 +14,6 @@ export class Post {
 
 export class BlogService {
     posts: Post[];
-    nextId: number = 10;
 
     constructor() {}
 
@@ -46,9 +45,18 @@ export class BlogService {
     }
 
     newPost(username: string): Post {
-        let url = "http://192.168.99.100:3000/api/" + username + "/" + this.nextId.toString();
+        let maxId = 0;
+        for(let i in this.posts){
+            if(this.posts[i].postid > maxId){
+                maxId = this.posts[i].postid;
+            }
+        }
+    
+        let nextId = maxId + 1;
+
+        let url = "http://192.168.99.100:3000/api/" + username + "/" + nextId.toString();
         let post = {
-            postid: this.nextId,
+            postid: nextId,
             created: new Date(),
             modified: new Date(),
             title: "",
@@ -72,13 +80,13 @@ export class BlogService {
         p.then( res => {
             if(res.status == 201){
                     this.posts.push(post);
-                    this.nextId = this.nextId + 1;
                     return post;
             }
             else{
                 // TODO: redirect and pop alert box.
                 console.log("Adding new post failed");
                 console.log(res);
+                alert('Adding new post failed');
                 return null;
             }
         });
@@ -125,6 +133,7 @@ export class BlogService {
             else{
                 console.log("Update failed");
                 console.log(res);
+                alert("Update failed");
             }
         });
     }
@@ -149,10 +158,11 @@ export class BlogService {
         });
         p.then( res => {
             if(res.status == 204){
-                console.log("Error deleting post");
+                console.log("Post deleted");
             }
             else{
-                console.log("Post deleted");
+                console.log("Error deleting post");
+                alert("Error deleting post");
             }
         });
     }
